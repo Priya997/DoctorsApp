@@ -4,18 +4,11 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
+    android:background="#ffffff"
     >
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo1"
-        android:layout_margin="10dp"/>
+
     <LinearLayout
         android:id="@+id/slider"
-        android:layout_below="@id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,23 +21,23 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="190dp"
             android:src="@drawable/doc"
             android:id="@+id/i1" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="190dp"
             android:src="@drawable/aaa"
             android:id="@+id/i2"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="190dp"
             android:src="@drawable/ccc"
             android:id="@+id/i3"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="190dp"
             android:src="@drawable/bbb"
             android:id="@+id/i4"/>
 
@@ -62,6 +55,7 @@
             android:layout_height="wrap_content"
             android:text="ABOUT US"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_margin="15dp"/>
 
         <TextView
@@ -69,6 +63,7 @@
             android:layout_height="wrap_content"
             android:text="VISION"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"/>
 <RelativeLayout
@@ -83,6 +78,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+
 
             android:background="@drawable/gradient"
             android:text="Book an Appointment"/>
