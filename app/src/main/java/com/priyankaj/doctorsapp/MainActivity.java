@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     MyData.nameArray[i],
                     MyData.versionArray[i],
                     MyData.id_[i]
-                   // MyData.drawableArray[i]
+                    // MyData.drawableArray[i]
             ));
         }
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-          //  v.getContext().startActivity(new Intent(v.getContext(), MainActivity2.class));
+            //  v.getContext().startActivity(new Intent(v.getContext(), MainActivity2.class));
         }
 
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 //            removedItems.add(selectedItemId);
 //            data.remove(selectedItemPosition);
 //            adapter.notifyItemRemoved(selectedItemPosition);
-        }
+    }
 
 
 

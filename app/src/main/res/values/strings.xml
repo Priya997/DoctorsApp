@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">""</string>
+    <string name="app_name">"Doctor's App"</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -8,5 +8,6 @@
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
-    <string name="slide_1_title">Doctors</string>
+    <string name="slide_1_title">"''Choose over various doctors according to your need''"</string>
+    <string name="slide_2_title">"''Book a doctor according to your convenience and in no time''"</string>
 </resources>
