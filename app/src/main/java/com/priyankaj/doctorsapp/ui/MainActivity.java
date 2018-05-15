@@ -1,18 +1,19 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.adapter.CustomAdapter;
+import com.priyankaj.doctorsapp.model.DoctorAppSingleton;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<DataModel> data;
-    static View.OnClickListener myOnClickListener;
+    public static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
 
     @Override
@@ -42,19 +42,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = new ArrayList<DataModel>();
-        for (int i = 0; i < MyData.nameArray.length; i++) {
-            data.add(new DataModel(
-                    MyData.nameArray[i],
-                    MyData.versionArray[i],
-                    MyData.id_[i]
-                   // MyData.drawableArray[i]
-            ));
-        }
-
         removedItems = new ArrayList<Integer>();
 
-        adapter = new CustomAdapter(data);
+        adapter = new CustomAdapter(DoctorAppSingleton.getInstance().getmDoctorAppDetails().getDoctorDetails());
         recyclerView.setAdapter(adapter);
     }
 

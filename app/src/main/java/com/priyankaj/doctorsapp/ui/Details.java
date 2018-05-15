@@ -1,9 +1,8 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
@@ -14,9 +13,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.text.SimpleDateFormat;
+import com.priyankaj.doctorsapp.R;
+
 import java.util.Calendar;
-import java.util.Locale;
 
 public class Details extends AppCompatActivity {
     static EditText DateEdit;

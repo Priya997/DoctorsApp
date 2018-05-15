@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,17 +6,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.ui.MainActivity;
+import com.priyankaj.doctorsapp.ui.MainActivity2;
 
 import java.util.ArrayList;
 
 
-public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHolder> {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private ArrayList<DataModel> dataSet;
+    private ArrayList<DoctorDetails> dataSet;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView textViewName;
         TextView textViewVersion;
@@ -26,23 +30,21 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
             super(itemView);
             this.textViewName = (TextView) itemView.findViewById(R.id.textViewName);
             this.textViewVersion = (TextView) itemView.findViewById(R.id.textViewVersion);
-         //   this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
+        //    this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, Docdet.class);
-                    context.startActivity(intent);
-                }
-            });
-        }
-
-
+       itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, MainActivity2.class);
+                context.startActivity(intent);
+            }
+        });
+    }
     }
 
-    public CustomAdapter2(ArrayList<DataModel> data) {
+    public CustomAdapter(ArrayList<DoctorDetails> data) {
         this.dataSet = data;
     }
 
@@ -50,7 +52,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
     public MyViewHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_l2, parent, false);
+                .inflate(R.layout.cards_layout, parent, false);
 
         view.setOnClickListener(MainActivity.myOnClickListener);
 
@@ -66,8 +68,8 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
         //ImageView imageView = holder.imageViewIcon;
 
         textViewName.setText(dataSet.get(listPosition).getName());
-        textViewVersion.setText(dataSet.get(listPosition).getNumber());
-    //    imageView.setImageResource(dataSet.get(listPosition).getImage());
+        textViewVersion.setText(dataSet.get(listPosition).getMobile());
+       // imageView.setImageResource(dataSet.get(listPosition).getImage());
     }
 
     @Override

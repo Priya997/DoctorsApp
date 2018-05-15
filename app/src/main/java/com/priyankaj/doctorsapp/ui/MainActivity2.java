@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
-import android.widget.TextView;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.adapter.CustomAdapter2;
+import com.priyankaj.doctorsapp.model.DoctorAppSingleton;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,6 @@ public class MainActivity2 extends AppCompatActivity {
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<DataModel> data;
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
 
@@ -39,19 +41,9 @@ public class MainActivity2 extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = new ArrayList<DataModel>();
-        for (int i = 0; i < MyData2.nameArray.length; i++) {
-            data.add(new DataModel(
-                    MyData2.nameArray[i],
-                    MyData2.versionArray[i],
-                    MyData2.id_[i]
-                  //  MyData2.drawableArray[i]
-            ));
-        }
-
         removedItems = new ArrayList<Integer>();
 
-        adapter = new CustomAdapter2(data);
+        adapter = new CustomAdapter2(DoctorAppSingleton.getInstance().getmDoctorAppDetails().getDoctorDetails());
         recyclerView.setAdapter(adapter);
     }
 

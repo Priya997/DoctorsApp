@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.utils.PrefManager;
 
 public class WelcomeActivity extends AppCompatActivity {
 
