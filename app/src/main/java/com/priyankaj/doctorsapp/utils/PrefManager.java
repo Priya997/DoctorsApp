@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

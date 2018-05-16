@@ -1,38 +1,37 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.adapter.CustomAdapter;
+import com.priyankaj.doctorsapp.model.CategorySingleton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity {
 
 
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<DataModel> data;
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.abs_layout);
-
+        getSupportActionBar().setCustomView(R.layout.bs_layout);
         myOnClickListener = new MyOnClickListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -42,19 +41,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = new ArrayList<DataModel>();
-        for (int i = 0; i < MyData.nameArray.length; i++) {
-            data.add(new DataModel(
-                    MyData.nameArray[i],
-                    MyData.versionArray[i],
-                    MyData.id_[i]
-                   // MyData.drawableArray[i]
-            ));
-        }
-
         removedItems = new ArrayList<Integer>();
 
-        adapter = new CustomAdapter(data);
+        adapter = new CustomAdapter(CategorySingleton.getInstance().getmCategoryDetailsList());
         recyclerView.setAdapter(adapter);
     }
 
@@ -69,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-          //  v.getContext().startActivity(new Intent(v.getContext(), MainActivity2.class));
+            Context context = v.getContext();
+            Intent intent = new Intent(context, Docdet.class);
+            context.startActivity(intent);
         }
 
 
@@ -78,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
 //            removedItems.add(selectedItemId);
 //            data.remove(selectedItemPosition);
 //            adapter.notifyItemRemoved(selectedItemPosition);
-        }
+    }
 
 
 
     public void itemClicked(View view, int position) {
         if(position==1) {
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            Intent intent = new Intent(MainActivity2.this, Docdet.class);
             startActivity(intent);
         }
         else {

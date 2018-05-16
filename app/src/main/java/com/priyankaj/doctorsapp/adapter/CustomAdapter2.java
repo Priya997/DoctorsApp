@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,15 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.ui.Docdet;
+import com.priyankaj.doctorsapp.ui.MainActivity;
 
 import java.util.ArrayList;
 
 
 public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHolder> {
 
-    private ArrayList<DataModel> dataSet;
+    private ArrayList<DoctorDetails> dataSet;
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
 
@@ -42,7 +46,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
 
     }
 
-    public CustomAdapter2(ArrayList<DataModel> data) {
+    public CustomAdapter2(ArrayList<DoctorDetails> data) {
         this.dataSet = data;
     }
 
@@ -66,7 +70,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
         //ImageView imageView = holder.imageViewIcon;
 
         textViewName.setText(dataSet.get(listPosition).getName());
-        textViewVersion.setText(dataSet.get(listPosition).getNumber());
+        textViewVersion.setText(dataSet.get(listPosition).getMobile());
     //    imageView.setImageResource(dataSet.get(listPosition).getImage());
     }
 

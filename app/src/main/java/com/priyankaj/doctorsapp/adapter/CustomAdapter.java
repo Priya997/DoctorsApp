@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,16 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.priyankaj.doctorsapp.R;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.ui.MainActivity;
+import com.priyankaj.doctorsapp.ui.MainActivity2;
 
 import java.util.ArrayList;
 
 
-
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private ArrayList<DataModel> dataSet;
+    private ArrayList<CategoryDetails.Category> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -41,7 +44,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
     }
 
-    public CustomAdapter(ArrayList<DataModel> data) {
+    public CustomAdapter(ArrayList<CategoryDetails.Category> data) {
         this.dataSet = data;
     }
 
@@ -64,8 +67,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         TextView textViewVersion = holder.textViewVersion;
         //ImageView imageView = holder.imageViewIcon;
 
-        textViewName.setText(dataSet.get(listPosition).getName());
-        textViewVersion.setText(dataSet.get(listPosition).getNumber());
+        textViewName.setText(dataSet.get(listPosition).getCategory_name());
+        textViewVersion.setText(dataSet.get(listPosition).getStatus());
        // imageView.setImageResource(dataSet.get(listPosition).getImage());
     }
 

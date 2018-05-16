@@ -1,14 +1,16 @@
-package com.priyankaj.doctorsapp;
+package com.priyankaj.doctorsapp.ui;
 
 /**
  * Created by Priyanka on 01-08-2017.
  */
 
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+
+import com.priyankaj.doctorsapp.R;
 
 public class SplashScreenActivity extends AppCompatActivity
 {
