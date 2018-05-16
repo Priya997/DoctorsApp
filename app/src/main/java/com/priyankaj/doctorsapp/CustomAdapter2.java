@@ -1,4 +1,4 @@
-package com.priyankaj.doctorsapp.Adapter;
+package com.priyankaj.doctorsapp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.priyankaj.doctorsapp.model.DataModel;
-import com.priyankaj.doctorsapp.ui.Docdet;
-import com.priyankaj.doctorsapp.MainActivity;
-import com.priyankaj.doctorsapp.R;
 
 import java.util.ArrayList;
 
