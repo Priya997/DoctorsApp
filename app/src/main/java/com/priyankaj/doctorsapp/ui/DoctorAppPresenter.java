@@ -3,11 +3,10 @@ package com.priyankaj.doctorsapp.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.priyankaj.doctorsapp.apis.DoctorDataService;
 import com.priyankaj.doctorsapp.apis.ServiceFactory;
-import com.priyankaj.doctorsapp.model.DoctorAppDetails;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,13 +38,13 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
     }
 
     @Override
-    public void fetchDoctorAppDetails(Activity context) {
+    public void fetchCategoryDetails(Activity context) {
 
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.getDoctorDetails()
+        service.getCategoryDetails()
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<DoctorAppDetails>() {
+                    .subscribe(new Subscriber<CategoryDetails>() {
                         @Override
                         public void onCompleted() {
 
@@ -58,9 +57,8 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
                         }
 
                         @Override
-                        public void onNext(DoctorAppDetails doctorAppDetails) {
-                            Log.d("doctor details",doctorAppDetails.getAppointment().get(0).getAppointments_id());
-                            mView.displayDoctorDetails(doctorAppDetails);
+                        public void onNext(CategoryDetails categoryDetailsList) {
+                            mView.displayCategoryDetails(categoryDetailsList.getCategory());
                         }
                     });
 

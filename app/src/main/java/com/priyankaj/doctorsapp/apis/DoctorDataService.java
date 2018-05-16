@@ -1,6 +1,7 @@
 package com.priyankaj.doctorsapp.apis;
 
-import com.priyankaj.doctorsapp.model.DoctorAppDetails;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
+
 import retrofit.http.GET;
 import rx.Observable;
 
@@ -12,7 +13,7 @@ public interface DoctorDataService {
 
     String SERVICE_ENDPOINT = "http://getfitgym.in";
 
-    @GET("/dr/api")
-    Observable<DoctorAppDetails> getDoctorDetails();
+    @GET("/dr/category")
+    Observable<CategoryDetails> getCategoryDetails();
 
 }

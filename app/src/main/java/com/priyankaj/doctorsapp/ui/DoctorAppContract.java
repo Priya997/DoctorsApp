@@ -4,7 +4,9 @@ import android.app.Activity;
 
 import com.priyankaj.doctorsapp.BasePresenter;
 import com.priyankaj.doctorsapp.BaseView;
-import com.priyankaj.doctorsapp.model.DoctorAppDetails;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
+
+import java.util.ArrayList;
 
 /**
  * Created by Vibhuti on 5/9/2018.
@@ -17,13 +19,13 @@ public class DoctorAppContract {
      */
     interface View extends BaseView<Presenter> {
 
-        public void displayDoctorDetails(DoctorAppDetails doctorAppDetails);
+        public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList);
     }
 
     /**
      * Doctor app screen Presenter
      */
     interface Presenter extends BasePresenter {
-        void fetchDoctorAppDetails(Activity context);
+        void fetchCategoryDetails(Activity context);
     }
 }

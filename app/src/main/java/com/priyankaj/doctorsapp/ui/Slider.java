@@ -7,13 +7,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.priyankaj.doctorsapp.R;
-import com.priyankaj.doctorsapp.model.DoctorAppDetails;
-import com.priyankaj.doctorsapp.model.DoctorAppSingleton;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.CategorySingleton;
+
+import java.util.ArrayList;
 
 public class Slider extends Activity implements DoctorAppContract.View{
 private Button book;
 private DoctorAppContract.Presenter presenter;
-private DoctorAppDetails doctorAppDetails;
+private CategoryDetails categoryDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,7 @@ private DoctorAppDetails doctorAppDetails;
         setContentView(R.layout.slider);
 
         PresenterInjector.injectDoctorAppPresenter(this);
-        presenter.fetchDoctorAppDetails(this);
+        presenter.fetchCategoryDetails(this);
 
         book=findViewById(R.id.book);
         book.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +41,7 @@ private DoctorAppDetails doctorAppDetails;
     }
 
     @Override
-    public void displayDoctorDetails(DoctorAppDetails doctorAppDetails) {
-        DoctorAppSingleton.getInstance().setmDoctorAppDetails(doctorAppDetails);
+    public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList) {
+        CategorySingleton.getInstance().setmCategoryDetailsList(categoryDetailsList);
     }
 }

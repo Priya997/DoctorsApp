@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.View;
 
 import com.priyankaj.doctorsapp.R;
-import com.priyankaj.doctorsapp.adapter.CustomAdapter2;
-import com.priyankaj.doctorsapp.model.DoctorAppSingleton;
+import com.priyankaj.doctorsapp.adapter.CustomAdapter;
+import com.priyankaj.doctorsapp.model.CategorySingleton;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         removedItems = new ArrayList<Integer>();
 
-        adapter = new CustomAdapter2(DoctorAppSingleton.getInstance().getmDoctorAppDetails().getDoctorDetails());
+        adapter = new CustomAdapter(CategorySingleton.getInstance().getmCategoryDetailsList());
         recyclerView.setAdapter(adapter);
     }
 
