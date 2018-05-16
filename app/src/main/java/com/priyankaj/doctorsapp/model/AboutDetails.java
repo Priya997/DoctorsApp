@@ -3,19 +3,19 @@ package com.priyankaj.doctorsapp.model;
 
 import java.util.ArrayList;
 
-public class DoctorDetails {
+public class AboutDetails {
 
-    public ArrayList<DoctorDetails.Doctors> getDoctors() {
-        return Doctors;
+    public ArrayList<AboutDetails.AboutUs> getAboutUs() {
+        return Aboutus;
     }
 
-    public void setDoctors(ArrayList<DoctorDetails.Doctors> doctors) {
-        Doctors = doctors;
+    public void setAboutUs(ArrayList<AboutDetails.AboutUs> aboutUs) {
+        Aboutus = aboutUs;
     }
 
-    private ArrayList<Doctors> Doctors;
+    private ArrayList<AboutUs> Aboutus;
 
-    public class Doctors{
+    public class AboutUs{
         private String did;
         private String category_id;
         private String qualification;

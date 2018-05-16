@@ -1,6 +1,9 @@
 package com.priyankaj.doctorsapp.apis;
 
+import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import retrofit.http.GET;
 import rx.Observable;
@@ -15,5 +18,15 @@ public interface DoctorDataService {
 
     @GET("/dr/category")
     Observable<CategoryDetails> getCategoryDetails();
+
+    @GET("/dr/doctor")
+    Observable<DoctorDetails> getDoctorDetails();
+
+
+    @GET("/dr/vision")
+    Observable<VisionDetails> getVisionDetails();
+
+    @GET("/dr/about")
+    Observable<AboutDetails> getAboutDetails();
 
 }
