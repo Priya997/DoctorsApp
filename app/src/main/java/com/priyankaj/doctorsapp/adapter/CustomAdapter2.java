@@ -11,14 +11,13 @@ import android.widget.TextView;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
 import com.priyankaj.doctorsapp.ui.Docdet;
-import com.priyankaj.doctorsapp.ui.MainActivity;
 
 import java.util.ArrayList;
 
 
 public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHolder> {
 
-    private ArrayList<DoctorDetails> dataSet;
+    private ArrayList<DoctorDetails.Doctors> dataSet;
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
 
@@ -46,7 +45,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
 
     }
 
-    public CustomAdapter2(ArrayList<DoctorDetails> data) {
+    public CustomAdapter2(ArrayList<DoctorDetails.Doctors> data) {
         this.dataSet = data;
     }
 
@@ -55,8 +54,6 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_l2, parent, false);
-
-        view.setOnClickListener(MainActivity.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;

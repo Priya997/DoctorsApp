@@ -8,16 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 
 import com.priyankaj.doctorsapp.R;
-import com.priyankaj.doctorsapp.adapter.CustomAdapter;
-import com.priyankaj.doctorsapp.model.CategorySingleton;
+import com.priyankaj.doctorsapp.adapter.CustomAdapter2;
+import com.priyankaj.doctorsapp.model.AboutDetails;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import java.util.ArrayList;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity implements DoctorAppContract.View{
 
 
     private static RecyclerView.Adapter adapter;
@@ -25,6 +29,7 @@ public class MainActivity2 extends AppCompatActivity {
     private static RecyclerView recyclerView;
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
+    private DoctorAppContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +47,12 @@ public class MainActivity2 extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         removedItems = new ArrayList<Integer>();
+        PresenterInjector.injectDoctorAppPresenter(this);
 
-        adapter = new CustomAdapter(CategorySingleton.getInstance().getmCategoryDetailsList());
-        recyclerView.setAdapter(adapter);
+
+        presenter.fetchDoctorDetails(this);
+
+
     }
 
 
@@ -92,4 +100,50 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
+    @Override
+    public void setPresenter(DoctorAppContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList) {
+
+    }
+
+    @Override
+    public void displayVisionDetails(ArrayList<VisionDetails.Vision> visionDetailsList) {
+
+    }
+
+    @Override
+    public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList) {
+
+    }
+
+    @Override
+    public void displayDoctorDetails(ArrayList<DoctorDetails.Doctors> doctorDetailsList) {
+
+        if(getIntent().hasExtra("category_id")){
+            String id = getIntent().getStringExtra("category_id");
+            try {
+            if(id!=null && !TextUtils.isEmpty(id) && Integer.parseInt(id) >=1){
+                ArrayList<DoctorDetails.Doctors> doctorsByCategoryList = new ArrayList<>();
+                for(DoctorDetails.Doctors doctors : doctorDetailsList){
+                    String categoryId = doctors.getCategory_id();
+
+                        if (categoryId != null && !TextUtils.isEmpty(categoryId) && Integer.parseInt(categoryId) == Integer.parseInt(id)) {
+                            doctorsByCategoryList.add(doctors);
+                        }
+                    }
+                adapter = new CustomAdapter2(doctorsByCategoryList);
+                recyclerView.setAdapter(adapter);
+                }
+            }catch (NumberFormatException e){
+
+                }
+
+
+        }
+
+    }
 }

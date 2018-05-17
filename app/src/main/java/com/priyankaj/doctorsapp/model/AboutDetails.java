@@ -19,7 +19,7 @@ public class AboutDetails {
         private String did;
         private String category_id;
         private String qualification;
-        private String about;
+        private String about_text;
         private String name;
         private String email;
         private String mobile;
@@ -52,11 +52,11 @@ public class AboutDetails {
         }
 
         public String getAbout() {
-            return about;
+            return about_text;
         }
 
         public void setAbout(String about) {
-            this.about = about;
+            this.about_text = about;
         }
 
         public String getName() {
