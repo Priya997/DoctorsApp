@@ -9,4 +9,6 @@
     <string name="start">GOT IT</string>
 
     <string name="slide_1_title">Doctors</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_vision">VisionActivity</string>
 </resources>

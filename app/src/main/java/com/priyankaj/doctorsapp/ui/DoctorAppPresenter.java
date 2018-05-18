@@ -6,7 +6,10 @@ import android.support.annotation.Nullable;
 
 import com.priyankaj.doctorsapp.apis.DoctorDataService;
 import com.priyankaj.doctorsapp.apis.ServiceFactory;
+import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,5 +65,80 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
                         }
                     });
 
+    }
+
+    @Override
+    public void fetchVisionDetails(Activity context) {
+        DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
+        service.getVisionDetails()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<VisionDetails>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(VisionDetails visionDetails) {
+                        mView.displayVisionDetails(visionDetails.getVision());
+                    }
+                });
+    }
+
+    @Override
+    public void fetchAboutDetails(Activity context) {
+        DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
+        service.getAboutDetails()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<AboutDetails>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(AboutDetails aboutDetails) {
+                        mView.displayAboutDetails(aboutDetails.getAboutUs());
+                    }
+                });
+    }
+
+    @Override
+    public void fetchDoctorDetails(Activity context) {
+        DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
+        service.getDoctorDetails()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoctorDetails>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(DoctorDetails doctorDetailsList) {
+                        mView.displayDoctorDetails(doctorDetailsList.getDoctors());
+                    }
+                });
     }
 }

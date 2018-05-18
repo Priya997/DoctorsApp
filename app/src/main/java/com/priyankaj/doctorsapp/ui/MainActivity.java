@@ -1,6 +1,5 @@
 package com.priyankaj.doctorsapp.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,18 +12,22 @@ import android.view.View;
 
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.adapter.CustomAdapter;
-import com.priyankaj.doctorsapp.model.CategorySingleton;
+import com.priyankaj.doctorsapp.model.AboutDetails;
+import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DoctorAppContract.View{
 
 
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    public static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
+    private DoctorAppContract.Presenter presenter;
+    private ArrayList<CategoryDetails.Category> mCategoryDetailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_layout);
-
-        myOnClickListener = new MyOnClickListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -44,33 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         removedItems = new ArrayList<Integer>();
 
-        adapter = new CustomAdapter(CategorySingleton.getInstance().getmCategoryDetailsList());
-        recyclerView.setAdapter(adapter);
+        PresenterInjector.injectDoctorAppPresenter(this);
+
+
+        presenter.fetchCategoryDetails(this);
+
+
     }
-
-
-    private static class MyOnClickListener implements View.OnClickListener {
-
-        private final Context context;
-
-        private MyOnClickListener(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onClick(View v) {
-          //  v.getContext().startActivity(new Intent(v.getContext(), MainActivity2.class));
-        }
-
-
-
-
-//            removedItems.add(selectedItemId);
-//            data.remove(selectedItemPosition);
-//            adapter.notifyItemRemoved(selectedItemPosition);
-        }
-
-
 
     public void itemClicked(View view, int position) {
         if(position==1) {
@@ -90,5 +71,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void setPresenter(DoctorAppContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList) {
+        mCategoryDetailsList = categoryDetailsList;
+        adapter = new CustomAdapter(categoryDetailsList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void displayVisionDetails(ArrayList<VisionDetails.Vision> visionDetailsList) {
+
+    }
+
+    @Override
+    public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList) {
+
+    }
+
+    @Override
+    public void displayDoctorDetails(ArrayList<DoctorDetails.Doctors> doctorDetailsList) {
+
+    }
 
 }

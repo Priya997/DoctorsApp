@@ -58,19 +58,21 @@
         android:layout_below="@+id/slider"
         android:orientation="vertical">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ABOUT US"
             android:textSize="16sp"
-            android:layout_margin="15dp"/>
+            android:layout_margin="15dp"
+            android:id="@+id/txt_about"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="VISION"
             android:textSize="16sp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="50dp"
+            android:id="@+id/txt_vision"/>
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

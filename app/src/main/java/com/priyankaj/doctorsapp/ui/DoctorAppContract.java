@@ -4,7 +4,10 @@ import android.app.Activity;
 
 import com.priyankaj.doctorsapp.BasePresenter;
 import com.priyankaj.doctorsapp.BaseView;
+import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import java.util.ArrayList;
 
@@ -20,6 +23,9 @@ public class DoctorAppContract {
     interface View extends BaseView<Presenter> {
 
         public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList);
+        public void displayVisionDetails(ArrayList<VisionDetails.Vision> visionDetailsList);
+        public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList);
+        public void displayDoctorDetails(ArrayList<DoctorDetails.Doctors> doctorDetailsList);
     }
 
     /**
@@ -27,5 +33,8 @@ public class DoctorAppContract {
      */
     interface Presenter extends BasePresenter {
         void fetchCategoryDetails(Activity context);
+        void fetchVisionDetails(Activity context);
+        void fetchAboutDetails(Activity context);
+        void fetchDoctorDetails(Activity context);
     }
 }

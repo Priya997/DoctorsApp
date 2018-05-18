@@ -5,15 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
-import com.priyankaj.doctorsapp.model.CategorySingleton;
 
-import java.util.ArrayList;
-
-public class Slider extends Activity implements DoctorAppContract.View{
+public class Slider extends Activity{
 private Button book;
+private TextView txtAbout,txtVision;
 private DoctorAppContract.Presenter presenter;
 private CategoryDetails categoryDetails;
 
@@ -21,9 +20,6 @@ private CategoryDetails categoryDetails;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slider);
-
-        PresenterInjector.injectDoctorAppPresenter(this);
-        presenter.fetchCategoryDetails(this);
 
         book=findViewById(R.id.book);
         book.setOnClickListener(new View.OnClickListener() {
@@ -33,15 +29,24 @@ private CategoryDetails categoryDetails;
                 startActivity(i);
             }
         });
+
+        txtAbout=findViewById(R.id.txt_about);
+        txtAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Slider.this,AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        txtVision=findViewById(R.id.txt_vision);
+        txtVision.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Slider.this,VisionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    @Override
-    public void setPresenter(DoctorAppContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList) {
-        CategorySingleton.getInstance().setmCategoryDetailsList(categoryDetailsList);
-    }
 }

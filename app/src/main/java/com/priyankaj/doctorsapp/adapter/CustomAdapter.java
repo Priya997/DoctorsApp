@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
-import com.priyankaj.doctorsapp.ui.MainActivity;
 import com.priyankaj.doctorsapp.ui.MainActivity2;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private ArrayList<CategoryDetails.Category> dataSet;
+    private static ArrayList<CategoryDetails.Category> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -38,6 +37,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, MainActivity2.class);
+                int id = (Integer)v.findViewById(R.id.textViewName).getTag();
+                intent.putExtra("category_id",dataSet.get(id).getCategory_id());
                 context.startActivity(intent);
             }
         });
@@ -54,8 +55,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cards_layout, parent, false);
 
-        view.setOnClickListener(MainActivity.myOnClickListener);
-
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
@@ -63,17 +62,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
 
+
         TextView textViewName = holder.textViewName;
         TextView textViewVersion = holder.textViewVersion;
         //ImageView imageView = holder.imageViewIcon;
 
         textViewName.setText(dataSet.get(listPosition).getCategory_name());
         textViewVersion.setText(dataSet.get(listPosition).getStatus());
+
+        textViewName.setTag(listPosition);
        // imageView.setImageResource(dataSet.get(listPosition).getImage());
     }
 
     @Override
     public int getItemCount() {
         return dataSet.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Integer.parseInt(dataSet.get(position).getCategory_id());
     }
 }
