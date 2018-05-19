@@ -3,24 +3,32 @@ package com.priyankaj.doctorsapp.ui;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
-import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import java.util.ArrayList;
@@ -33,12 +41,26 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     private EditText edtName;
     private EditText edtContact;
     private DoctorAppContract.Presenter presenter;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 1;
+    private boolean isUserSignedin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
+        View view = LayoutInflater.from(this).inflate(R.layout.abs_layout,null);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.book);
+        TextView txtName = view.findViewById(R.id.mytext);
+        txtName.setText("Book");
+        getSupportActionBar().setCustomView(view);
+
+        // Configure sign-in to request the user's ID, email address, and basic
+// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+
+//         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         PresenterInjector.injectDoctorAppPresenter(this);
 
@@ -64,6 +86,10 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                if(!isUserSignedin){
+//                    signIn();
+//                }
+
                 if(validateInput()){
                     AppointmentDetailsRequest appointmentDetailsRequest = new AppointmentDetailsRequest();
                     appointmentDetailsRequest.setMobile(edtContact.getText().toString());
@@ -154,14 +180,17 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     }
 
     @Override
-    public void displayDoctorDetails(ArrayList<DoctorDetails.Doctors> doctorDetailsList) {
+    public void displayDoctorDetails(ArrayList<Doctors> doctorDetailsList) {
 
     }
 
     @Override
     public void showformDisplaySuccess(AppointmentDetails.Appointments appointments) {
 
-        Toast.makeText(this,"Apointment scheduled successfully!!",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Appointment scheduled successfully!!",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(Details.this,Slider.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override
@@ -171,6 +200,55 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 
     private boolean validateInput(){
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        if(account!=null){
+//            isUserSignedin = true;
+//        }
+
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            if(validateInput()){
+                AppointmentDetailsRequest appointmentDetailsRequest = new AppointmentDetailsRequest();
+                appointmentDetailsRequest.setMobile(edtContact.getText().toString());
+                appointmentDetailsRequest.setDate(DateEdit.getText().toString());
+                appointmentDetailsRequest.setTime(timeEdit.getText().toString());
+                appointmentDetailsRequest.setName(edtName.getText().toString());
+                presenter.sendFormData(appointmentDetailsRequest);
+            }
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Toast.makeText(this,"Please signin to continue",Toast.LENGTH_LONG).show();
+        }
     }
 }
 
