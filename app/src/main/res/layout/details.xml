@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#EEEEEE">
+    android:background="#ffffff">
 
 <TextView
     android:layout_width="match_parent"
@@ -14,105 +14,87 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"/>
+    android:orientation="vertical"
+    android:layout_marginTop="50dp">
+
     <EditText
-        android:id="@+id/editTextEnterPassword"
+        android:id="@+id/edt_name"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/edittext_bottom"
-        />
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roundtext"
+        android:drawableLeft="@drawable/user"
+        android:drawablePadding="15dp"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:hint="Name" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contact"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"/>
     <EditText
 
+        android:id="@+id/edt_contact"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/edittext_bottom"
-        />
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/roundtext"
+        android:drawableLeft="@drawable/contact"
+        android:drawablePadding="15dp"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:hint="Contact"></EditText>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"/>
         <EditText
             android:id="@+id/et1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:focusable="false"
-            android:background="@drawable/edittext_bottom"
-            />
-    />
-    </LinearLayout>
+            android:ellipsize="start"
+            android:gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
+            android:drawableLeft="@drawable/date"
+            android:drawablePadding="15dp"
+            android:background="@drawable/roundtext"
+            android:hint="Date"            />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"/>
+
         <EditText
             android:id="@+id/et2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:focusable="false"
-            android:background="@drawable/edittext_bottom"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:drawableLeft="@drawable/timer"
+            android:drawablePadding="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/roundtext"
+            android:hint="Time"
             />
-    </LinearLayout>
+
 
 <Button
-    style="@style/AppTheme.Button"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="60dp"
+    android:layout_marginLeft="60dp"
+    android:layout_marginRight="60dp"
+    android:layout_marginTop="20dp"
     android:text="Book"
-    android:background="#00E5FF"/>
+    android:textSize="20dp"
+    android:textColor="#ffffff"
+    android:textStyle="bold"
+    android:background="@drawable/gradient"
+    android:id="@+id/btn_book"/>
 
 
 
 
+</LinearLayout>
 </LinearLayout>

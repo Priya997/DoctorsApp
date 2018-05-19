@@ -13,6 +13,7 @@ import android.view.View;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.adapter.CustomAdapter;
 import com.priyankaj.doctorsapp.model.AboutDetails;
+import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
 import com.priyankaj.doctorsapp.model.VisionDetails;
@@ -98,4 +99,13 @@ public class MainActivity extends AppCompatActivity implements DoctorAppContract
 
     }
 
+    @Override
+    public void showformDisplaySuccess(AppointmentDetails.Appointments appointments) {
+
+    }
+
+    @Override
+    public void showformDisplayFaliure() {
+
+    }
 }
