@@ -8,7 +8,7 @@ import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
-import com.priyankaj.doctorsapp.model.DoctorDetails;
+import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class DoctorAppContract {
         public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList);
         public void displayVisionDetails(ArrayList<VisionDetails.Vision> visionDetailsList);
         public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList);
-        public void displayDoctorDetails(ArrayList<DoctorDetails.Doctors> doctorDetailsList);
+        public void displayDoctorDetails(ArrayList<Doctors> doctorDetailsList);
         public void showformDisplaySuccess(AppointmentDetails.Appointments appointments);
         public void showformDisplayFaliure();
     }
@@ -41,5 +41,6 @@ public class DoctorAppContract {
         void fetchAboutDetails(Activity context);
         void fetchDoctorDetails(Activity context);
         void sendFormData(AppointmentDetailsRequest appointmentDetailsRequest);
+        void fetchDoctorPersonalDetails(Activity context);
     }
 }

@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
-import com.priyankaj.doctorsapp.model.DoctorDetails;
-import com.priyankaj.doctorsapp.ui.Docdet;
+import com.priyankaj.doctorsapp.model.Doctors;
+import com.priyankaj.doctorsapp.ui.DoctorDetailsActivity;
 
 import java.util.ArrayList;
 
 
-public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHolder> {
+public class DoctorDetailsAdapter extends RecyclerView.Adapter<DoctorDetailsAdapter.MyViewHolder> {
 
-    private ArrayList<DoctorDetails.Doctors> dataSet;
+    private ArrayList<Doctors> dataSet;
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
 
@@ -36,7 +36,9 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, Docdet.class);
+                    Intent intent = new Intent(context, DoctorDetailsActivity.class);
+                    int position = (Integer)v.findViewById(R.id.textViewName).getTag();
+                    intent.putExtra("doctor",dataSet.get(position));
                     context.startActivity(intent);
                 }
             });
@@ -45,7 +47,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
 
     }
 
-    public CustomAdapter2(ArrayList<DoctorDetails.Doctors> data) {
+    public DoctorDetailsAdapter(ArrayList<Doctors> data) {
         this.dataSet = data;
     }
 
@@ -67,6 +69,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.MyViewHo
         //ImageView imageView = holder.imageViewIcon;
 
         textViewName.setText(dataSet.get(listPosition).getName());
+        textViewName.setTag(listPosition);
         textViewVersion.setText(dataSet.get(listPosition).getMobile());
     //    imageView.setImageResource(dataSet.get(listPosition).getImage());
     }

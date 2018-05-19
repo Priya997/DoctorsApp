@@ -20,6 +20,16 @@ public class CategoryDetails {
         private String category_name;
         private String status;
 
+        public int getDoctorCount() {
+            return doctorCount;
+        }
+
+        public void setDoctorCount(int doctorCount) {
+            this.doctorCount = doctorCount;
+        }
+
+        int doctorCount;
+
         public String getCategory_id() {
             return category_id;
         }

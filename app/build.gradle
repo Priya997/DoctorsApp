@@ -19,6 +19,17 @@ android {
     buildToolsVersion '27.0.3'
 }
 
+allprojects {
+    repositories {
+        google()
+
+        // If you're using a version of Gradle lower than 4.1, you must instead use:
+        // maven {
+        //     url 'https://maven.google.com'
+        // }
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -32,4 +43,6 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.4'
     compile 'com.squareup.retrofit:retrofit:1.9.+'
+    compile 'com.google.android.gms:play-services-auth:11.8.0'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.4.2'
 }

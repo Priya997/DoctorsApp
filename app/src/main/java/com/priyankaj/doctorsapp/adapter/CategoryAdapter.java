@@ -1,7 +1,5 @@
 package com.priyankaj.doctorsapp.adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +8,11 @@ import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
-import com.priyankaj.doctorsapp.ui.MainActivity2;
 
 import java.util.ArrayList;
 
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
     private static ArrayList<CategoryDetails.Category> dataSet;
 
@@ -35,17 +32,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
        itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, MainActivity2.class);
-                int id = (Integer)v.findViewById(R.id.textViewName).getTag();
-                intent.putExtra("category_id",dataSet.get(id).getCategory_id());
-                context.startActivity(intent);
+                int position = (Integer)v.findViewById(R.id.textViewName).getTag();
+                if(dataSet.get(position).getDoctorCount()>0){
+                    mCategoryClickedListener.onCategoryClicked(position);
+                }
+
             }
         });
     }
     }
 
-    public CustomAdapter(ArrayList<CategoryDetails.Category> data) {
+    public CategoryAdapter(ArrayList<CategoryDetails.Category> data) {
         this.dataSet = data;
     }
 
@@ -68,7 +65,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         //ImageView imageView = holder.imageViewIcon;
 
         textViewName.setText(dataSet.get(listPosition).getCategory_name());
-        textViewVersion.setText(dataSet.get(listPosition).getStatus());
+        textViewVersion.setText(dataSet.get(listPosition).getDoctorCount()+"");
 
         textViewName.setTag(listPosition);
        // imageView.setImageResource(dataSet.get(listPosition).getImage());
@@ -82,5 +79,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public long getItemId(int position) {
         return Integer.parseInt(dataSet.get(position).getCategory_id());
+    }
+
+    public static interface CategoryClickedListener{
+        public void onCategoryClicked(int position);
+    }
+
+    private static CategoryClickedListener mCategoryClickedListener;
+
+    public static void setCategoryClickedListener(CategoryClickedListener categoryClickedListener){
+        mCategoryClickedListener = categoryClickedListener;
     }
 }

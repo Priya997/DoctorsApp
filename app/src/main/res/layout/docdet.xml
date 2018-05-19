@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Cardiologist"
+                android:id="@+id/txt_category"
                 android:textColor="#000000" />
 
             <TextView
@@ -53,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Timing -"
-
                 android:textColor="#000000" />
             <TextView
 
@@ -63,14 +63,15 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="2dp"
                 android:text="9am to 6pm"
-
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:id="@+id/txt_timings"/>
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="MBBS"
+                android:id="@+id/txt_qualification"
                 android:textColor="#000000" />
 
 

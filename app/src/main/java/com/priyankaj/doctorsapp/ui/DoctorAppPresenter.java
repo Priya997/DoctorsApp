@@ -169,4 +169,9 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
                     }
                 });
     }
+
+    @Override
+    public void fetchDoctorPersonalDetails(Activity context) {
+
+    }
 }
