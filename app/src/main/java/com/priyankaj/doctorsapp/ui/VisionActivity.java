@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.AboutDetails;
+import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
 import com.priyankaj.doctorsapp.model.VisionDetails;
@@ -53,6 +54,16 @@ public class VisionActivity extends AppCompatActivity implements DoctorAppContra
 
     @Override
     public void displayDoctorDetails(ArrayList<DoctorDetails.Doctors> doctorDetailsList) {
+
+    }
+
+    @Override
+    public void showformDisplaySuccess(AppointmentDetails.Appointments appointments) {
+
+    }
+
+    @Override
+    public void showformDisplayFaliure() {
 
     }
 }

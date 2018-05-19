@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Doctor Listing"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:id="@+id/mytext"
         android:textSize="18sp" />
 
