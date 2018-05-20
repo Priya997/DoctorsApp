@@ -35,5 +35,7 @@ private Doctors doctor;
         ((TextView)findViewById(R.id.txt_category)).setText(doctor.getCategory());
         ((TextView)findViewById(R.id.txt_qualification)).setText(doctor.getQualification());
         ((TextView)findViewById(R.id.txt_timings)).setText(doctor.getDetail());
+        ((TextView)findViewById(R.id.txt_email)).setText(doctor.getEmail());
+        ((TextView)findViewById(R.id.txt_phone)).setText(doctor.getMobile());
     }
 }

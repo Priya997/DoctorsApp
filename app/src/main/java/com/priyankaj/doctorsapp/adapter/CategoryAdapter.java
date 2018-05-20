@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.andexert.library.RippleView;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 
@@ -20,25 +21,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         TextView textViewName;
         TextView textViewVersion;
+        RippleView rvCategory;
         //ImageView imageViewIcon;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.textViewName = (TextView) itemView.findViewById(R.id.textViewName);
             this.textViewVersion = (TextView) itemView.findViewById(R.id.textViewVersion);
-        //    this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
+            this.rvCategory = itemView.findViewById(R.id.rv_category);
 
-
-       itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (Integer)v.findViewById(R.id.textViewName).getTag();
-                if(dataSet.get(position).getDoctorCount()>0){
-                    mCategoryClickedListener.onCategoryClicked(position);
+            rvCategory.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                @Override
+                public void onComplete(RippleView rippleView) {
+                    int position = (Integer)rippleView.getTag();
+                    if(dataSet.get(position).getDoctorCount()>0){
+                        mCategoryClickedListener.onCategoryClicked(position);
+                    }
                 }
-
-            }
-        });
+            });
+        //    this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
     }
     }
 
@@ -67,7 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         textViewName.setText(dataSet.get(listPosition).getCategory_name());
         textViewVersion.setText(dataSet.get(listPosition).getDoctorCount()+"");
 
-        textViewName.setTag(listPosition);
+        holder.rvCategory.setTag(listPosition);
        // imageView.setImageResource(dataSet.get(listPosition).getImage());
     }
 
@@ -90,4 +91,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     public static void setCategoryClickedListener(CategoryClickedListener categoryClickedListener){
         mCategoryClickedListener = categoryClickedListener;
     }
+
 }

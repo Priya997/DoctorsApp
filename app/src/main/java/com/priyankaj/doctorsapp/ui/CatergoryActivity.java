@@ -41,7 +41,6 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = LayoutInflater.from(this).inflate(R.layout.abs_layout,null);
         TextView txtName = view.findViewById(R.id.mytext);
