@@ -34,6 +34,8 @@ import com.priyankaj.doctorsapp.model.VisionDetails;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 public class Details extends AppCompatActivity implements DoctorAppContract.View{
     static EditText DateEdit;
     static EditText timeEdit;
@@ -44,6 +46,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1;
     private boolean isUserSignedin;
+    private MaterialProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
         timeEdit = (EditText) findViewById(R.id.et2);
         edtName = findViewById(R.id.edt_name);
         edtContact = findViewById(R.id.edt_contact);
+        progress = findViewById(R.id.progress);
 
         DateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +100,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
                     appointmentDetailsRequest.setDate(DateEdit.getText().toString());
                     appointmentDetailsRequest.setTime(timeEdit.getText().toString());
                     appointmentDetailsRequest.setName(edtName.getText().toString());
+                    progress.setVisibility(View.VISIBLE);
                     presenter.sendFormData(appointmentDetailsRequest);
                 }
             }
@@ -187,6 +192,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     @Override
     public void showformDisplaySuccess(AppointmentDetails.Appointments appointments) {
 
+        progress.setVisibility(View.GONE);
         Toast.makeText(this,"Appointment scheduled successfully!!",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(Details.this,Slider.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -250,5 +256,27 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
             Toast.makeText(this,"Please signin to continue",Toast.LENGTH_LONG).show();
         }
     }
+
+//    private void insertValuesInCalendar(){
+//        long calID = 3;
+//        long startMillis = 0;
+//        long endMillis = 0;
+//        Calendar beginTime = Calendar.getInstance();
+//        beginTime.set(2012, 9, 14, 7, 30);
+//        startMillis = beginTime.getTimeInMillis();
+//        Calendar endTime = Calendar.getInstance();
+//        endTime.set(2012, 9, 14, 8, 45);
+//        endMillis = endTime.getTimeInMillis();
+//
+//        ContentResolver cr = getContentResolver();
+//        ContentValues values = new ContentValues();
+//        values.put(CalendarContract.Events.DTSTART, startMillis);
+//        values.put(CalendarContract.Events.DTEND, endMillis);
+//        values.put(CalendarContract.Events.TITLE, "Jazzercise");
+//        values.put(CalendarContract.Events.DESCRIPTION, "Group workout");
+//        values.put(CalendarContract.Events.CALENDAR_ID, calID);
+//        values.put(CalendarContract.Events.EVENT_TIMEZONE, "America/Los_Angeles");
+//        Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+//    }
 }
 

@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
     >
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <com.andexert.library.RippleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="#ffffff"
+        android:id="@+id/rv_category"
+        app:rv_centered="true"
+        app:rv_rippleDuration="200">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fab_margin"
+        android:layout_margin="@dimen/fab_margin"
         >
 
 
@@ -18,19 +27,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:background="@drawable/about_vision" >
 
             <ImageView
                 android:id="@+id/picture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/stet"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="10dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -48,17 +57,19 @@
                     android:layout_marginLeft="10dp"
                     android:text="Android Name"
                     android:textStyle="bold"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
                     android:id="@+id/textViewVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-
+                    android:layout_marginBottom="5dp"
                     android:text="Android Version"
                     android:textSize="15dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -68,7 +79,7 @@
 
 
     </android.support.v7.widget.CardView>
-
+    </com.andexert.library.RippleView>
 </LinearLayout>
 
 
