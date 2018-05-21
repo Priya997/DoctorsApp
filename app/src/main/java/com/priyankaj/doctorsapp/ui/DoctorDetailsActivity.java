@@ -1,9 +1,14 @@
 package com.priyankaj.doctorsapp.ui;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,7 +22,13 @@ private Doctors doctor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setExitTransition(new Explode());
+        }
         setContentView(R.layout.docdet);
+
+
 
         if(getIntent().hasExtra("doctor")){
             doctor = getIntent().getParcelableExtra("doctor");
@@ -26,8 +37,17 @@ private Doctors doctor;
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),Details.class);
-                startActivity(i);
+
+                Intent intent = new Intent(getApplicationContext(),Details.class);
+                intent.putExtra("doctor_id",doctor.getDid());
+                intent.putExtra("reg_date",doctor.getRegdate());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(DoctorDetailsActivity.this).toBundle());
+                } else {
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -37,5 +57,28 @@ private Doctors doctor;
         ((TextView)findViewById(R.id.txt_timings)).setText(doctor.getDetail());
         ((TextView)findViewById(R.id.txt_email)).setText(doctor.getEmail());
         ((TextView)findViewById(R.id.txt_phone)).setText(doctor.getMobile());
+
+        findViewById(R.id.img_phone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+((TextView)findViewById(R.id.txt_phone)).getText()));
+                startActivity(intent);
+            }
+        });
+
+
+
+        findViewById(R.id.img_email).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_EMAIL, ((TextView)findViewById(R.id.txt_email)).getText());
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
