@@ -100,6 +100,9 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
                     appointmentDetailsRequest.setDate(DateEdit.getText().toString());
                     appointmentDetailsRequest.setTime(timeEdit.getText().toString());
                     appointmentDetailsRequest.setName(edtName.getText().toString());
+                    appointmentDetailsRequest.setDoctorId(getIntent().getStringExtra("doctor_id"));
+                    appointmentDetailsRequest.setRegdate(getIntent().getStringExtra("reg_date"));
+                    appointmentDetailsRequest.setRemarks("Please book");
                     progress.setVisibility(View.VISIBLE);
                     presenter.sendFormData(appointmentDetailsRequest);
                 }

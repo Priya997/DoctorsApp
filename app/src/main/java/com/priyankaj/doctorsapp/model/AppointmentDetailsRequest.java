@@ -61,4 +61,14 @@ public class AppointmentDetailsRequest {
     private String time;
     private String regdate;
     private String remarks;
+
+    public String getDoctorId() {
+        return doctorid;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorid = doctorId;
+    }
+
+    private String doctorid;
 }
