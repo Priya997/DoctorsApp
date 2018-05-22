@@ -9,14 +9,14 @@ import android.os.Bundle;
 import android.transition.Explode;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.andexert.library.RippleView;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.Doctors;
 
 public class DoctorDetailsActivity extends Activity{
-Button book;
+RippleView book;
 
 private Doctors doctor;
     @Override
@@ -33,11 +33,10 @@ private Doctors doctor;
         if(getIntent().hasExtra("doctor")){
             doctor = getIntent().getParcelableExtra("doctor");
         }
-        book=(Button)findViewById(R.id.bookbutton);
-        book.setOnClickListener(new View.OnClickListener() {
+        book=findViewById(R.id.bookbutton);
+        book.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onComplete(RippleView rippleView) {
                 Intent intent = new Intent(getApplicationContext(),Details.class);
                 intent.putExtra("doctor_id",doctor.getDid());
                 intent.putExtra("reg_date",doctor.getRegdate());
@@ -73,7 +72,7 @@ private Doctors doctor;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.setData(Uri.parse("mailto:"+((TextView)findViewById(R.id.txt_email)).getText())); // only email apps should handle this
                 intent.putExtra(Intent.EXTRA_EMAIL, ((TextView)findViewById(R.id.txt_email)).getText());
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
