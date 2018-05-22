@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import com.priyankaj.doctorsapp.apis.DoctorDataService;
 import com.priyankaj.doctorsapp.apis.ServiceFactory;
 import com.priyankaj.doctorsapp.model.AboutDetails;
-import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
@@ -151,7 +150,7 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
         service.sendFormData(appointmentDetailsRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<AppointmentDetails>() {
+                .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
 
@@ -164,8 +163,8 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(AppointmentDetails appointmentDetails) {
-                        mView.showformDisplaySuccess(appointmentDetails.getAppointments());
+                    public void onNext(String appointmentDetails) {
+                        mView.showformDisplaySuccess(appointmentDetails);
                     }
                 });
     }

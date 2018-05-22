@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.priyankaj.doctorsapp.BasePresenter;
 import com.priyankaj.doctorsapp.BaseView;
 import com.priyankaj.doctorsapp.model.AboutDetails;
-import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
@@ -28,7 +27,7 @@ public class DoctorAppContract {
         public void displayVisionDetails(ArrayList<VisionDetails.Vision> visionDetailsList);
         public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList);
         public void displayDoctorDetails(ArrayList<Doctors> doctorDetailsList);
-        public void showformDisplaySuccess(AppointmentDetails.Appointments appointments);
+        public void showformDisplaySuccess(String appointments);
         public void showformDisplayFaliure();
     }
 

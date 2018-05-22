@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.AboutDetails;
-import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
@@ -75,7 +74,7 @@ public class AboutActivity extends AppCompatActivity implements DoctorAppContrac
     }
 
     @Override
-    public void showformDisplaySuccess(AppointmentDetails.Appointments appointments) {
+    public void showformDisplaySuccess(String appointments) {
 
     }
 
