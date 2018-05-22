@@ -1,7 +1,6 @@
 package com.priyankaj.doctorsapp.apis;
 
 import com.priyankaj.doctorsapp.model.AboutDetails;
-import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
@@ -34,5 +33,5 @@ public interface DoctorDataService {
     Observable<AboutDetails> getAboutDetails();
 
     @POST("/dr/insert")
-    Observable<AppointmentDetails> sendFormData(@Body AppointmentDetailsRequest appointmentDetailsRequest);
+    Observable<String> sendFormData(@Body AppointmentDetailsRequest appointmentDetailsRequest);
 }

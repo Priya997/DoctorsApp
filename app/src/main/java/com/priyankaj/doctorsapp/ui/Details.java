@@ -25,7 +25,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.AboutDetails;
-import com.priyankaj.doctorsapp.model.AppointmentDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
@@ -193,7 +192,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     }
 
     @Override
-    public void showformDisplaySuccess(AppointmentDetails.Appointments appointments) {
+    public void showformDisplaySuccess(String appointments) {
 
         progress.setVisibility(View.GONE);
         Toast.makeText(this,"Appointment scheduled successfully!!",Toast.LENGTH_LONG).show();
