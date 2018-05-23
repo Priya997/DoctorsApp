@@ -1,12 +1,12 @@
 package com.priyankaj.doctorsapp.apis;
 
 import com.priyankaj.doctorsapp.model.AboutDetails;
-import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
-import retrofit.http.Body;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import rx.Observable;
@@ -32,6 +32,16 @@ public interface DoctorDataService {
     @GET("/dr/about")
     Observable<AboutDetails> getAboutDetails();
 
+    /*@POST("/dr/insert")
+    Observable<String> sendFormData(@Body AppointmentDetailsRequest appointmentDetailsRequest);*/
+
     @POST("/dr/insert")
-    Observable<String> sendFormData(@Body AppointmentDetailsRequest appointmentDetailsRequest);
+    @FormUrlEncoded
+    Observable<String> sendFormData(@Field("mobile") String mobile,
+                                    @Field("date") String date,
+                                    @Field("name") String name,
+                                    @Field("time") String time,
+                                    @Field("regdate") String regdate,
+                                    @Field("remarks") String remarks,
+                                    @Field("doctorid") String doctorid);
 }

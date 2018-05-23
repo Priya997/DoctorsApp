@@ -144,10 +144,18 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
     }
 
 
+
     @Override
     public void sendFormData(AppointmentDetailsRequest appointmentDetailsRequest) {
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.sendFormData(appointmentDetailsRequest)
+//        service.sendFormData(appointmentDetailsRequest)
+        service.sendFormData(appointmentDetailsRequest.getMobile(),
+                appointmentDetailsRequest.getDate(),
+                appointmentDetailsRequest.getName(),
+                appointmentDetailsRequest.getTime(),
+                appointmentDetailsRequest.getRegdate(),
+                appointmentDetailsRequest.getRemarks(),
+                appointmentDetailsRequest.getDoctorId())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {
