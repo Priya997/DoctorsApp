@@ -262,6 +262,9 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
             isValidPhone = true;
             if(edtContact.getText().toString().length()!=10){
                 isValidPhoneLength = false;
+            }else
+            {
+                isValidPhoneLength = true;
             }
         }else
         {
