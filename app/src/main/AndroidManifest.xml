@@ -3,6 +3,8 @@
     package="com.priyankaj.doctorsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -18,10 +20,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/myTheme">
-        <activity android:name=".ui.WelcomeActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
         <activity android:name=".ui.CatergoryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.DoctorListActivity"

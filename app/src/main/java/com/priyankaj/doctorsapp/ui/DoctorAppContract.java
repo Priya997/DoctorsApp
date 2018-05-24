@@ -28,7 +28,8 @@ public class DoctorAppContract {
         public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList);
         public void displayDoctorDetails(ArrayList<Doctors> doctorDetailsList);
         public void showformDisplaySuccess(String appointments);
-        public void showformDisplayFaliure();
+        public void showformDisplayFaliure(String message);
+        public void fetchDataFailure(String message);
     }
 
     /**
@@ -39,7 +40,7 @@ public class DoctorAppContract {
         void fetchVisionDetails(Activity context);
         void fetchAboutDetails(Activity context);
         void fetchDoctorDetails(Activity context);
-        void sendFormData(AppointmentDetailsRequest appointmentDetailsRequest);
+        void sendFormData(Activity context,AppointmentDetailsRequest appointmentDetailsRequest);
         void fetchDoctorPersonalDetails(Activity context);
     }
 }

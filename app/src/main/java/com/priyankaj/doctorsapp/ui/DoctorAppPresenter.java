@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.apis.DoctorDataService;
 import com.priyankaj.doctorsapp.apis.ServiceFactory;
 import com.priyankaj.doctorsapp.model.AboutDetails;
@@ -12,9 +13,11 @@ import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Vibhuti on 5/9/2018.
@@ -26,8 +29,6 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
 
     public DoctorAppPresenter(DoctorAppContract.View view) {
         this.mView = view;
-
-        // This should be the last statement
         this.mView.setPresenter(this);
     }
 
@@ -41,132 +42,115 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
 
     }
 
+    /**
+     * Fetch the doctor category details
+     * @param context
+     */
     @Override
-    public void fetchCategoryDetails(Activity context) {
+    public void fetchCategoryDetails(final Activity context) {
 
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.getCategoryDetails()
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<CategoryDetails>() {
-                        @Override
-                        public void onCompleted() {
+            service.getCategoryDetails().enqueue(new Callback<CategoryDetails>() {
+                @Override
+                public void onResponse(Call<CategoryDetails> call, Response<CategoryDetails> response) {
+                    int statusCode = response.code();
+                    ArrayList<CategoryDetails.Category> strresponse = response.body().getCategory();
+                    mView.displayCategoryDetails(strresponse);
+                }
 
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onNext(CategoryDetails categoryDetailsList) {
-                            mView.displayCategoryDetails(categoryDetailsList.getCategory());
-                        }
-                    });
-
+                @Override
+                public void onFailure(Call<CategoryDetails> call, Throwable t) {
+                    mView.fetchDataFailure(context.getResources().getString(R.string.category_error_message));
+                }
+            });
     }
 
+    /**
+     * Fetch details for app vision
+     * @param context
+     */
     @Override
-    public void fetchVisionDetails(Activity context) {
+    public void fetchVisionDetails(final Activity context){
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.getVisionDetails()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<VisionDetails>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
+            service.getVisionDetails().enqueue(new Callback<VisionDetails>() {
+                @Override
+                public void onResponse(Call<VisionDetails> call, Response<VisionDetails> response) {
+                    mView.displayVisionDetails(response.body().getVision());
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(VisionDetails visionDetails) {
-                        mView.displayVisionDetails(visionDetails.getVision());
-                    }
-                });
+                @Override
+                public void onFailure(Call<VisionDetails> call, Throwable t) {
+                    mView.fetchDataFailure(context.getResources().getString(R.string.vision_error_message));
+                }
+            });
     }
 
+    /**
+     * Fetch details for about app
+     * @param context
+     */
     @Override
-    public void fetchAboutDetails(Activity context) {
+    public void fetchAboutDetails(final Activity context) {
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.getAboutDetails()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<AboutDetails>() {
-                    @Override
-                    public void onCompleted() {
+            service.getAboutDetails().enqueue(new Callback<AboutDetails>() {
+                @Override
+                public void onResponse(Call<AboutDetails> call, Response<AboutDetails> response) {
+                    mView.displayAboutDetails(response.body().getAboutUs());
+                }
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(AboutDetails aboutDetails) {
-                        mView.displayAboutDetails(aboutDetails.getAboutUs());
-                    }
-                });
+                @Override
+                public void onFailure(Call<AboutDetails> call, Throwable t) {
+                    mView.fetchDataFailure(context.getResources().getString(R.string.about_error_message));
+                }
+            });
     }
 
+    /**
+     * Fetch details for doctor
+     * @param context
+     */
     @Override
-    public void fetchDoctorDetails(Activity context) {
+    public void fetchDoctorDetails(final Activity context) {
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.getDoctorDetails()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DoctorDetails>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
+            service.getDoctorDetails().enqueue(new Callback<DoctorDetails>() {
+                @Override
+                public void onResponse(Call<DoctorDetails> call, Response<DoctorDetails> response) {
+                    mView.displayDoctorDetails(response.body().getDoctors());
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(DoctorDetails doctorDetailsList) {
-                        mView.displayDoctorDetails(doctorDetailsList.getDoctors());
-                    }
-                });
+                @Override
+                public void onFailure(Call<DoctorDetails> call, Throwable t) {
+                    mView.fetchDataFailure(context.getResources().getString(R.string.doctor_error_message));
+                }
+            });
     }
 
-
+    /**
+     * Send appointment details to server
+     * @param appointmentDetailsRequest
+     */
     @Override
-    public void sendFormData(AppointmentDetailsRequest appointmentDetailsRequest) {
+    public void sendFormData(final Activity context, AppointmentDetailsRequest appointmentDetailsRequest) {
         DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
-        service.sendFormData(appointmentDetailsRequest)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
+            service.sendFormData(appointmentDetailsRequest.getMobile(),
+                    appointmentDetailsRequest.getDate(),
+                    appointmentDetailsRequest.getName(),
+                    appointmentDetailsRequest.getTime(),
+                    appointmentDetailsRequest.getRegdate(),
+                    appointmentDetailsRequest.getRemarks(),
+                    appointmentDetailsRequest.getDoctorId()).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    mView.showformDisplaySuccess(response.body().toString());
+                }
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(String appointmentDetails) {
-                        mView.showformDisplaySuccess(appointmentDetails);
-                    }
-                });
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    mView.showformDisplayFaliure(context.getResources().getString(R.string.send_appointment_details_error_message));
+                }
+            });
     }
 
     @Override

@@ -31,7 +31,9 @@
         android:drawablePadding="15dp"
         android:ellipsize="start"
         android:gravity="center"
-        android:hint="Name" />
+        android:hint="Name"
+        android:paddingLeft="10dp"
+        />
 
     <EditText
 
@@ -47,7 +49,9 @@
         android:ellipsize="start"
         android:gravity="center"
         android:hint="Contact"
-        android:inputType="number"></EditText>
+        android:inputType="number"
+        android:maxLength="10"
+        android:paddingLeft="10dp"></EditText>
 
         <EditText
             android:id="@+id/et1"
@@ -61,7 +65,8 @@
             android:drawableLeft="@drawable/date"
             android:drawablePadding="15dp"
             android:background="@drawable/roundtext"
-            android:hint="Date"            />
+            android:hint="Date"
+            android:paddingLeft="10dp"/>
 
 
 
@@ -78,7 +83,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundtext"
             android:hint="Time"
-            />
+            android:paddingLeft="10dp"/>
 
 
 <Button
