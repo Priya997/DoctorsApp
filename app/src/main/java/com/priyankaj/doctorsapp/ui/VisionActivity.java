@@ -78,7 +78,12 @@ public class VisionActivity extends AppCompatActivity implements DoctorAppContra
     }
 
     @Override
-    public void showformDisplayFaliure() {
+    public void showformDisplayFaliure(String message) {
+
+    }
+
+    @Override
+    public void fetchDataFailure(String message) {
 
     }
 }

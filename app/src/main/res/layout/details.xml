@@ -47,7 +47,8 @@
         android:ellipsize="start"
         android:gravity="center"
         android:hint="Contact"
-        android:inputType="number"></EditText>
+        android:inputType="number"
+        android:maxLength="10"></EditText>
 
         <EditText
             android:id="@+id/et1"

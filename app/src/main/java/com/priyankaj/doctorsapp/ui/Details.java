@@ -1,5 +1,6 @@
 package com.priyankaj.doctorsapp.ui;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +32,12 @@ import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
@@ -46,6 +52,10 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     private static final int RC_SIGN_IN = 1;
     private boolean isUserSignedin;
     private MaterialProgressBar progress;
+    private boolean isValidName,isValidPhone,isValidDate,isValidTime;
+    private static Activity detailsActivity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +65,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
         TextView txtName = view.findViewById(R.id.mytext);
         txtName.setText("Book");
         getSupportActionBar().setCustomView(view);
+        detailsActivity = Details.this;
 
         // Configure sign-in to request the user's ID, email address, and basic
 // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -68,6 +79,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 
         DateEdit = (EditText) findViewById(R.id.et1);
         timeEdit = (EditText) findViewById(R.id.et2);
+        timeEdit.setEnabled(false);
         edtName = findViewById(R.id.edt_name);
         edtContact = findViewById(R.id.edt_contact);
         progress = findViewById(R.id.progress);
@@ -101,9 +113,9 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
                     appointmentDetailsRequest.setName(edtName.getText().toString());
                     appointmentDetailsRequest.setDoctorId(getIntent().getStringExtra("doctor_id"));
                     appointmentDetailsRequest.setRegdate(getIntent().getStringExtra("reg_date"));
-                    appointmentDetailsRequest.setRemarks("Please book");
+                    appointmentDetailsRequest.setRemarks("Booked through app");
                     progress.setVisibility(View.VISIBLE);
-                    presenter.sendFormData(appointmentDetailsRequest);
+                    presenter.sendFormData(Details.this,appointmentDetailsRequest);
                 }
             }
         });
@@ -112,7 +124,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 
     }
 
-
+    private static int mYear,  mMonth,  mDay;
     public void showTruitonDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -133,9 +145,31 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+
         public void onDateSet(DatePicker view, int year, int month, int day) {
+
+            try {
+                mYear = year;
+
+                mDay = day;
+                month = month+1;
+                mMonth = month;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date selectedDate =  dateFormat.parse(day + "/" + month + "/" + year);
+                Date date = new Date();
+                Date dateCurrent = dateFormat.parse(dateFormat.format(date));
+                if(selectedDate.before(dateCurrent)){
+                    showToast("Please select a future date",detailsActivity);
+                }else
+                {
+                    DateEdit.setText(day + "/" + (month + 1) + "/" + year);
+                    timeEdit.setEnabled(true);
+                }
+            }catch (ParseException e){
+
+            }
             // Do something with the date chosen by the user
-            DateEdit.setText(day + "/" + (month + 1) + "/" + year);
+
         }
     }
 
@@ -161,8 +195,22 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
-            DateEdit.setText(DateEdit.getText());
-            timeEdit.setText( hourOfDay + ":" + minute);
+            try {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault());
+                Date selectedDate =  dateFormat.parse(mDay + "/" + mMonth + "/" + mYear+" "+hourOfDay+":"+minute);
+                Date date = new Date();
+                Date dateCurrent = dateFormat.parse(dateFormat.format(date));
+                if(selectedDate.before(dateCurrent)){
+                    showToast("Please select a future time",detailsActivity);
+                }else
+                {
+                    SimpleDateFormat dateFormatAmpm = new SimpleDateFormat("hh:mm a",Locale.getDefault());
+                    timeEdit.setText(dateFormatAmpm.format(selectedDate));
+                }
+            }catch (ParseException e){
+
+            }
         }
     }
 
@@ -201,13 +249,57 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
         startActivity(intent);
     }
 
-    @Override
-    public void showformDisplayFaliure() {
-
-    }
 
     private boolean validateInput(){
-        return true;
+        if(edtName.getText()!=null && !TextUtils.isEmpty(edtName.getText().toString())){
+            isValidName = true;
+        }else
+        {
+            isValidName = false;
+        }
+
+        if(edtContact.getText()!=null &&!TextUtils.isEmpty(edtContact.getText().toString())){
+            isValidPhone = true;
+        }else
+        {
+            isValidPhone = false;
+        }
+
+        if(DateEdit.getText()!=null &&!TextUtils.isEmpty(DateEdit.getText().toString())){
+            isValidDate = true;
+        }else
+        {
+            isValidDate = false;
+        }
+
+        if(timeEdit.getText()!=null &&!TextUtils.isEmpty(timeEdit.getText().toString())){
+            isValidTime = true;
+        }else
+        {
+            isValidTime = false;
+        }
+
+        if(!isValidName){
+            Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
+            return false;
+        } if(!isValidPhone){
+            Toast.makeText(this, "Please enter a phone number", Toast.LENGTH_SHORT).show();
+            return false;
+        } if(!isValidDate){
+            Toast.makeText(this, "Please enter a date", Toast.LENGTH_SHORT).show();
+            return false;
+        } if(!isValidTime){
+            Toast.makeText(this, "Please enter a time", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(isValidName&&isValidPhone&&isValidDate&&isValidTime){
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Override
@@ -250,7 +342,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
                 appointmentDetailsRequest.setDate(DateEdit.getText().toString());
                 appointmentDetailsRequest.setTime(timeEdit.getText().toString());
                 appointmentDetailsRequest.setName(edtName.getText().toString());
-                presenter.sendFormData(appointmentDetailsRequest);
+                presenter.sendFormData(this,appointmentDetailsRequest);
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -280,5 +372,20 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 //        values.put(CalendarContract.Events.EVENT_TIMEZONE, "America/Los_Angeles");
 //        Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
 //    }
+
+
+    @Override
+    public void showformDisplayFaliure(String message) {
+
+    }
+
+    @Override
+    public void fetchDataFailure(String message) {
+
+    }
+
+    private static void showToast(String text, Activity context){
+        Toast.makeText(context,text,Toast.LENGTH_LONG).show();
+    }
 }
 

@@ -18,10 +18,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/myTheme">
-        <activity android:name=".ui.WelcomeActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
         <activity android:name=".ui.CatergoryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.DoctorListActivity"

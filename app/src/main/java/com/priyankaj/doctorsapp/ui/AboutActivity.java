@@ -78,8 +78,14 @@ public class AboutActivity extends AppCompatActivity implements DoctorAppContrac
 
     }
 
+
     @Override
-    public void showformDisplayFaliure() {
+    public void showformDisplayFaliure(String message) {
+
+    }
+
+    @Override
+    public void fetchDataFailure(String message) {
 
     }
 }

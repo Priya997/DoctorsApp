@@ -139,11 +139,6 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
     }
 
     @Override
-    public void showformDisplayFaliure() {
-
-    }
-
-    @Override
     public void onCategoryClicked(int position) {
         Intent intent = new Intent(this, DoctorListActivity.class);
         int id = Integer.parseInt(mCategoryDetailsList.get(position).getCategory_id());
@@ -155,5 +150,15 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
         }
         intent.putParcelableArrayListExtra("doctor list",doctorBasedOnCategory);
         startActivity(intent);
+    }
+
+    @Override
+    public void showformDisplayFaliure(String message) {
+
+    }
+
+    @Override
+    public void fetchDataFailure(String message) {
+
     }
 }

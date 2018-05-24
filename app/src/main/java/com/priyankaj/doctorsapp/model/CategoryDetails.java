@@ -2,8 +2,8 @@ package com.priyankaj.doctorsapp.model;
 
 
 import java.util.ArrayList;
-
 public class CategoryDetails {
+
 
     public ArrayList<Category> getCategory() {
         return Category;

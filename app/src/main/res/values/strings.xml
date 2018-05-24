@@ -13,4 +13,11 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_vision">VisionActivity</string>
     <string name="title_activity_maps">Map</string>
+
+    <!--error strings-->
+    <string name="vision_error_message">We could not fetch the vision details at the moment.Please try again later.</string>
+    <string name="about_error_message">We could not fetch the about details at the moment.Please try again later.</string>
+    <string name="category_error_message">We could not fetch the category details at the moment.Please try again later.</string>
+    <string name="doctor_error_message">We could not fetch the doctor details at the moment.Please try again later.</string>
+    <string name="send_appointment_details_error_message">We could not book an appointment for you at the moment.Please try again later.</string>
 </resources>
