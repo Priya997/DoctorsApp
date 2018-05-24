@@ -31,6 +31,7 @@ import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
+import com.priyankaj.doctorsapp.utils.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -105,18 +106,25 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 //                    signIn();
 //                }
 
-                if(validateInput()){
-                    AppointmentDetailsRequest appointmentDetailsRequest = new AppointmentDetailsRequest();
-                    appointmentDetailsRequest.setMobile(edtContact.getText().toString());
-                    appointmentDetailsRequest.setDate(DateEdit.getText().toString());
-                    appointmentDetailsRequest.setTime(timeEdit.getText().toString());
-                    appointmentDetailsRequest.setName(edtName.getText().toString());
-                    appointmentDetailsRequest.setDoctorId(getIntent().getStringExtra("doctor_id"));
-                    appointmentDetailsRequest.setRegdate(getIntent().getStringExtra("reg_date"));
-                    appointmentDetailsRequest.setRemarks("Booked through app");
-                    progress.setVisibility(View.VISIBLE);
-                    presenter.sendFormData(Details.this,appointmentDetailsRequest);
+                if(Utils.isNetworkConnected(Details.this))
+                {
+                    if(validateInput()){
+                        AppointmentDetailsRequest appointmentDetailsRequest = new AppointmentDetailsRequest();
+                        appointmentDetailsRequest.setMobile(edtContact.getText().toString());
+                        appointmentDetailsRequest.setDate(DateEdit.getText().toString());
+                        appointmentDetailsRequest.setTime(timeEdit.getText().toString());
+                        appointmentDetailsRequest.setName(edtName.getText().toString());
+                        appointmentDetailsRequest.setDoctorId(getIntent().getStringExtra("doctor_id"));
+                        appointmentDetailsRequest.setRegdate(getIntent().getStringExtra("reg_date"));
+                        appointmentDetailsRequest.setRemarks("Booked through app");
+                        progress.setVisibility(View.VISIBLE);
+                        presenter.sendFormData(Details.this,appointmentDetailsRequest);
+                    }
+                }else
+                {
+                    Toast.makeText(Details.this, getResources().getString(R.string.internet_error_message).toString(), Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

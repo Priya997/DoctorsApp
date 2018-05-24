@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
@@ -13,6 +14,7 @@ import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
+import com.priyankaj.doctorsapp.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -21,7 +23,8 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 public class AboutActivity extends AppCompatActivity implements DoctorAppContract.View{
 
     private DoctorAppContract.Presenter presenter;
-    private TextView txtAbout;
+    private TextView txtAbout,txtError,txtErrorRetry;
+    private LinearLayout linlayError;
     private MaterialProgressBar pgProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,23 @@ public class AboutActivity extends AppCompatActivity implements DoctorAppContrac
         getSupportActionBar().setCustomView(view);
 
         txtAbout = findViewById(R.id.txt_about);
+        txtError = findViewById(R.id.txt_error);
+        txtErrorRetry = findViewById(R.id.txt_error_retry);
+        linlayError = findViewById(R.id.linlay_error);
+        pgProgress = findViewById(R.id.progress);
 
         PresenterInjector.injectDoctorAppPresenter(this);
 
-        pgProgress = findViewById(R.id.progress);
-        pgProgress.setVisibility(View.VISIBLE);
-        presenter.fetchAboutDetails(this);
+        txtErrorRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                call();
+            }
+        });
+
+        call();
+
     }
 
     @Override
@@ -62,10 +76,14 @@ public class AboutActivity extends AppCompatActivity implements DoctorAppContrac
     public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList) {
         String strAbout = aboutDetailsList.get(0).getAbout();
         if(strAbout!=null && !TextUtils.isEmpty(strAbout)){
+            linlayError.setVisibility(View.GONE);
+            txtAbout.setVisibility(View.VISIBLE);
             txtAbout.setText(strAbout);
         }
 
-        pgProgress.setVisibility(View.GONE);
+        if(pgProgress!=null && pgProgress.isShown()){
+            pgProgress.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -86,6 +104,24 @@ public class AboutActivity extends AppCompatActivity implements DoctorAppContrac
 
     @Override
     public void fetchDataFailure(String message) {
-
+        if(pgProgress!=null && pgProgress.isShown()){
+            pgProgress.setVisibility(View.GONE);
+        }
+        linlayError.setVisibility(View.VISIBLE);
+        txtError.setText(message);
+        txtAbout.setVisibility(View.GONE);
     }
+
+    private void call(){
+        if(Utils.isNetworkConnected(this)){
+
+            pgProgress.setVisibility(View.VISIBLE);
+            presenter.fetchAboutDetails(this);
+        }else
+        {
+            fetchDataFailure(getResources().getString(R.string.internet_error_message));
+        }
+    }
+
+
 }

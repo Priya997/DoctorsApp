@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.priyankaj.doctorsapp.R;
@@ -19,6 +20,7 @@ import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
+import com.priyankaj.doctorsapp.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,8 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
     private ArrayList<CategoryDetails.Category> mCategoryDetailsList;
     private MaterialProgressBar pgProgress;
     private ArrayList<Doctors> mDoctorDetailsList;
+    private TextView txtError,txtErrorRetry;
+    private LinearLayout linlayError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +63,21 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
         PresenterInjector.injectDoctorAppPresenter(this);
 
         pgProgress = findViewById(R.id.progress);
-        pgProgress.setVisibility(View.VISIBLE);
-        presenter.fetchCategoryDetails(this);
+
+
+        txtError = findViewById(R.id.txt_error);
+        txtErrorRetry = findViewById(R.id.txt_error_retry);
+        linlayError = findViewById(R.id.linlay_error);
+
+        txtErrorRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                call();
+            }
+        });
+
+        call();
 
 
     }
@@ -126,10 +143,14 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
                     }
                 mDoctorDetailsList = doctorDetailsList;
                 adapter = new CategoryAdapter(mCategoryDetailsList);
+                recyclerView.setVisibility(View.VISIBLE);
+                linlayError.setVisibility(View.GONE);
                 recyclerView.setAdapter(adapter);
                 CategoryAdapter.setCategoryClickedListener(this);
 
-        pgProgress.setVisibility(View.GONE);
+        if(pgProgress!=null && pgProgress.isShown()){
+            pgProgress.setVisibility(View.GONE);
+        }
 
     }
 
@@ -159,6 +180,22 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
 
     @Override
     public void fetchDataFailure(String message) {
+        if(pgProgress!=null && pgProgress.isShown()){
+            pgProgress.setVisibility(View.GONE);
+        }
+        linlayError.setVisibility(View.VISIBLE);
+        txtError.setText(message);
+        recyclerView.setVisibility(View.GONE);
+    }
 
+    private void call(){
+        if(Utils.isNetworkConnected(this)){
+
+            pgProgress.setVisibility(View.VISIBLE);
+            presenter.fetchCategoryDetails(this);
+        }else
+        {
+            fetchDataFailure(getResources().getString(R.string.internet_error_message));
+        }
     }
 }
