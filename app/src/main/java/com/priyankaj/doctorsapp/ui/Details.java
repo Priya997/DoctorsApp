@@ -52,7 +52,7 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
     private static final int RC_SIGN_IN = 1;
     private boolean isUserSignedin;
     private MaterialProgressBar progress;
-    private boolean isValidName,isValidPhone,isValidDate,isValidTime;
+    private boolean isValidName,isValidPhone,isValidDate,isValidPhoneLength,isValidTime;
     private static Activity detailsActivity;
 
 
@@ -260,6 +260,9 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 
         if(edtContact.getText()!=null &&!TextUtils.isEmpty(edtContact.getText().toString())){
             isValidPhone = true;
+            if(edtContact.getText().toString().length()!=10){
+                isValidPhoneLength = false;
+            }
         }else
         {
             isValidPhone = false;
@@ -285,10 +288,13 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
         } if(!isValidPhone){
             Toast.makeText(this, "Please enter a phone number", Toast.LENGTH_SHORT).show();
             return false;
+        }  if(!isValidPhoneLength){
+            Toast.makeText(this, "Phone number should be 10 digits", Toast.LENGTH_SHORT).show();
+            return false;
         } if(!isValidDate){
             Toast.makeText(this, "Please enter a date", Toast.LENGTH_SHORT).show();
             return false;
-        } if(!isValidTime){
+        }if(!isValidTime){
             Toast.makeText(this, "Please enter a time", Toast.LENGTH_SHORT).show();
             return false;
         }

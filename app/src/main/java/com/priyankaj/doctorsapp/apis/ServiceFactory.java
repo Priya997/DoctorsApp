@@ -1,5 +1,8 @@
 package com.priyankaj.doctorsapp.apis;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -25,10 +28,15 @@ public class ServiceFactory {
         OkHttpClient okHttpClient = client.newBuilder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .build();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(endPoint)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
         T service = retrofit.create(clazz);
