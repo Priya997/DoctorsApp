@@ -50,7 +50,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
     public MyViewHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cards_layout, parent, false);
+                .inflate(R.layout.city_layout, parent, false);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;

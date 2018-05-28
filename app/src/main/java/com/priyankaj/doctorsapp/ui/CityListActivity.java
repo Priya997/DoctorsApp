@@ -36,7 +36,7 @@ public class CityListActivity extends AppCompatActivity implements  CityAdapter.
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = LayoutInflater.from(this).inflate(R.layout.abs_layout,null);
         TextView txtName = view.findViewById(R.id.mytext);
-        txtName.setText("Category");
+        txtName.setText("City");
         getSupportActionBar().setCustomView(view);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
