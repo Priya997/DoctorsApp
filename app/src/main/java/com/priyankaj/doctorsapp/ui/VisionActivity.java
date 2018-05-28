@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.City;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 import com.priyankaj.doctorsapp.utils.Utils;
@@ -120,5 +121,11 @@ public class VisionActivity extends AppCompatActivity implements DoctorAppContra
         {
             fetchDataFailure(getResources().getString(R.string.internet_error_message));
         }
+    }
+
+
+    @Override
+    public void displayCityDetails(ArrayList<City> cityArrayList) {
+
     }
 }

@@ -29,6 +29,7 @@ import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.City;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 import com.priyankaj.doctorsapp.utils.Utils;
@@ -403,6 +404,11 @@ public class Details extends AppCompatActivity implements DoctorAppContract.View
 
     private static void showToast(String text, Activity context){
         Toast.makeText(context,text,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayCityDetails(ArrayList<City> cityArrayList) {
+
     }
 }
 

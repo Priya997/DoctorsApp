@@ -7,6 +7,7 @@ import com.priyankaj.doctorsapp.BaseView;
 import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.City;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
@@ -26,6 +27,7 @@ public class DoctorAppContract {
         public void displayCategoryDetails(ArrayList<CategoryDetails.Category> categoryDetailsList);
         public void displayVisionDetails(ArrayList<VisionDetails.Vision> visionDetailsList);
         public void displayAboutDetails(ArrayList<AboutDetails.AboutUs> aboutDetailsList);
+        public void displayCityDetails(ArrayList<City> cityArrayList);
         public void displayDoctorDetails(ArrayList<Doctors> doctorDetailsList);
         public void showformDisplaySuccess(String appointments);
         public void showformDisplayFaliure(String message);
@@ -40,7 +42,7 @@ public class DoctorAppContract {
         void fetchVisionDetails(Activity context);
         void fetchAboutDetails(Activity context);
         void fetchDoctorDetails(Activity context);
+        void fetchCityDetails(Activity context);
         void sendFormData(Activity context,AppointmentDetailsRequest appointmentDetailsRequest);
-        void fetchDoctorPersonalDetails(Activity context);
     }
 }

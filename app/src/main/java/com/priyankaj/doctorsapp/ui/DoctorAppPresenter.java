@@ -10,6 +10,7 @@ import com.priyankaj.doctorsapp.apis.ServiceFactory;
 import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.AppointmentDetailsRequest;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.CityDetails;
 import com.priyankaj.doctorsapp.model.DoctorDetails;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 
@@ -153,8 +154,23 @@ public class DoctorAppPresenter implements DoctorAppContract.Presenter {
             });
     }
 
+    /**
+     * Fetch details for city
+     * @param context
+     */
     @Override
-    public void fetchDoctorPersonalDetails(Activity context) {
+    public void fetchCityDetails(final Activity context) {
+        DoctorDataService service = ServiceFactory.createRetrofitService(DoctorDataService.class, DoctorDataService.SERVICE_ENDPOINT);
+        service.getCityDetails().enqueue(new Callback<CityDetails>() {
+            @Override
+            public void onResponse(Call<CityDetails> call, Response<CityDetails> response) {
+                mView.displayCityDetails(response.body().getCity());
+            }
 
+            @Override
+            public void onFailure(Call<CityDetails> call, Throwable t) {
+                mView.fetchDataFailure(context.getResources().getString(R.string.city_details_error_message));
+            }
+        });
     }
 }

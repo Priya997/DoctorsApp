@@ -20,6 +20,26 @@ public class Doctors implements Parcelable{
     private String status;
     private String regdate;
 
+    public String getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(String city_id) {
+        this.city_id = city_id;
+    }
+
+    private String city_id;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    private String city;
+
     public String getCategory() {
         return category;
     }
@@ -129,6 +149,8 @@ public class Doctors implements Parcelable{
         dest.writeString(getStatus());
         dest.writeString(getRegdate());
         dest.writeString(getCategory());
+        dest.writeString(getCity());
+        dest.writeString(getCity_id());
     }
 
     private Doctors(Parcel in) {
@@ -143,6 +165,8 @@ public class Doctors implements Parcelable{
         status = in.readString();
         regdate = in.readString();
         category = in.readString();
+        city = in.readString();
+        city_id = in.readString();
 
     }
 
