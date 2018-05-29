@@ -18,6 +18,7 @@ import com.priyankaj.doctorsapp.R;
 import com.priyankaj.doctorsapp.adapter.CategoryAdapter;
 import com.priyankaj.doctorsapp.model.AboutDetails;
 import com.priyankaj.doctorsapp.model.CategoryDetails;
+import com.priyankaj.doctorsapp.model.City;
 import com.priyankaj.doctorsapp.model.Doctors;
 import com.priyankaj.doctorsapp.model.VisionDetails;
 import com.priyankaj.doctorsapp.utils.Utils;
@@ -37,6 +38,7 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
     private ArrayList<CategoryDetails.Category> mCategoryDetailsList;
     private MaterialProgressBar pgProgress;
     private ArrayList<Doctors> mDoctorDetailsList;
+    private ArrayList<City> mCityList;
     private TextView txtError,txtErrorRetry;
     private LinearLayout linlayError;
 
@@ -123,34 +125,9 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
 
     @Override
     public void displayDoctorDetails(ArrayList<Doctors> doctorDetailsList) {
+        mDoctorDetailsList = doctorDetailsList;
+        presenter.fetchCityDetails(this);
 
-
-                    for(Doctors doctors : doctorDetailsList){
-                        try {
-                        int id = Integer.parseInt(doctors.getCategory_id());
-                            for (int i=0;i<mCategoryDetailsList.size();i++){
-                                if(Integer.parseInt(mCategoryDetailsList.get(i).getCategory_id()) == id){
-                                    int count = mCategoryDetailsList.get(i).getDoctorCount()+1;
-                                    mCategoryDetailsList.get(i).setDoctorCount(count);
-                                    doctors.setCategory(mCategoryDetailsList.get(i).getCategory_name());
-                                    break;
-                                }
-                            }
-                        }catch (NumberFormatException e){
-
-                        }
-
-                    }
-                mDoctorDetailsList = doctorDetailsList;
-                adapter = new CategoryAdapter(mCategoryDetailsList);
-                recyclerView.setVisibility(View.VISIBLE);
-                linlayError.setVisibility(View.GONE);
-                recyclerView.setAdapter(adapter);
-                CategoryAdapter.setCategoryClickedListener(this);
-
-        if(pgProgress!=null && pgProgress.isShown()){
-            pgProgress.setVisibility(View.GONE);
-        }
 
     }
 
@@ -161,15 +138,41 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
 
     @Override
     public void onCategoryClicked(int position) {
-        Intent intent = new Intent(this, DoctorListActivity.class);
+        Intent intent = new Intent(this, CityListActivity.class);
         int id = Integer.parseInt(mCategoryDetailsList.get(position).getCategory_id());
         ArrayList<Doctors> doctorBasedOnCategory = new ArrayList<>();
+        ArrayList<City> cityBasedOnCategory = new ArrayList<>();
         for(Doctors doctors : mDoctorDetailsList){
             if(doctors.getCategory_id()!=null && !TextUtils.isEmpty(doctors.getCategory_id()) && Integer.parseInt(doctors.getCategory_id())==id){
                 doctorBasedOnCategory.add(doctors);
             }
         }
+
+
+            for(Doctors doctors : doctorBasedOnCategory) {
+                int id1 = Integer.parseInt(doctors.getCity_id());
+                for(City city : mCityList){
+                    if(city.getCity_ids()!=null && !TextUtils.isEmpty(city.getCity_ids()) && Integer.parseInt(city.getCity_ids())==id1){
+                        if(cityBasedOnCategory.contains(city)){
+                            int index = cityBasedOnCategory.indexOf(city);
+                            int count = cityBasedOnCategory.get(index).getDoctorCount()+1;
+                            cityBasedOnCategory.get(index).setDoctorCount(count);
+
+                        }else
+                        {
+                            cityBasedOnCategory.add(city);
+                            city.setDoctorCount(1);
+                            doctors.setCity(city.getCity_name());
+                        }
+
+
+
+                    }
+            }
+        }
+
         intent.putParcelableArrayListExtra("doctor list",doctorBasedOnCategory);
+        intent.putParcelableArrayListExtra("city list",cityBasedOnCategory);
         startActivity(intent);
     }
 
@@ -196,6 +199,39 @@ public class CatergoryActivity extends AppCompatActivity implements DoctorAppCon
         }else
         {
             fetchDataFailure(getResources().getString(R.string.internet_error_message));
+        }
+    }
+
+    @Override
+    public void displayCityDetails(ArrayList<City> cityArrayList) {
+
+        mCityList = cityArrayList;
+
+        for(Doctors doctors : mDoctorDetailsList){
+            try {
+                int id = Integer.parseInt(doctors.getCategory_id());
+                for (int i=0;i<mCategoryDetailsList.size();i++){
+                    if(Integer.parseInt(mCategoryDetailsList.get(i).getCategory_id()) == id){
+                        int count = mCategoryDetailsList.get(i).getDoctorCount()+1;
+                        mCategoryDetailsList.get(i).setDoctorCount(count);
+                        doctors.setCategory(mCategoryDetailsList.get(i).getCategory_name());
+                        break;
+                    }
+                }
+            }catch (NumberFormatException e){
+
+            }
+
+
+        }
+        adapter = new CategoryAdapter(mCategoryDetailsList);
+        recyclerView.setVisibility(View.VISIBLE);
+        linlayError.setVisibility(View.GONE);
+        recyclerView.setAdapter(adapter);
+        CategoryAdapter.setCategoryClickedListener(this);
+
+        if(pgProgress!=null && pgProgress.isShown()){
+            pgProgress.setVisibility(View.GONE);
         }
     }
 }

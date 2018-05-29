@@ -45,6 +45,10 @@
         <activity
             android:name=".ui.VisionActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.CityListActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
